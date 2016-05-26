@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements UsersListView, Vi
         {
             setDefaultToQuickSearch();
             quickSearchView.setVisibility(View.VISIBLE);
+            quickSearch();
         }
         else
             quickSearchView.setVisibility(View.GONE);
@@ -89,6 +90,12 @@ public class MainActivity extends AppCompatActivity implements UsersListView, Vi
     {
         quickSearchAdapter.setUsersList(new ArrayList<>());
         quickSearchView.getLayoutParams().height = 0;
+    }
+
+    private void quickSearch()
+    {
+        if (quickSearchPresenter != null)
+            quickSearchPresenter.onSearchButtonClick();
     }
 
     @OnEditorAction(R.id.edit_text)
@@ -154,8 +161,7 @@ public class MainActivity extends AppCompatActivity implements UsersListView, Vi
             @Override
             public void afterTextChanged(Editable s)
             {
-                if (quickSearchPresenter != null)
-                    quickSearchPresenter.onSearchButtonClick();
+                quickSearch();
             }
 
         });
